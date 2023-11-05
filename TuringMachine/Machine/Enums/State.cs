@@ -4,12 +4,12 @@ namespace Machine.Enums
 {
     public enum State
     {
-        Q0,
-        Q1,
-        Q2,
-        Q3,
-        Q4,
-        Q5,
-        Q6,
+        Q1 = 1,
+        Q2 = 2,
+        Q3 = 3,
+        Q4 = 4,
+        Accept = 0,
+        Reject = -1,
+        
     }
 }

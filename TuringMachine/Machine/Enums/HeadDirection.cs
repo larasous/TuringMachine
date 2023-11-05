@@ -4,8 +4,8 @@ namespace Machine.Enums
 {
     public enum HeadDirection
     {
-        Right,
-        Left,
-        Stop
+        Left = -1,
+        NoMove = 0,
+        Right = 1
     }
 }
