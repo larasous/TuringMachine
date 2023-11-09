@@ -26,27 +26,25 @@ namespace Machine
             Direction = headPosition;
         }
 
-        //public void SetInput(IEnumerable<char> input, IEnumerable<char> tape) => tape = input;
+        public Head(HeadDirection direction, IEnumerable<char> tape)
+        {
+            Direction = direction;
+            Tape = tape;
+        }
 
-        public Head MoveLeft() => Direction == 0 ? new Head(Tape, 0) : new Head(Tape, Direction - 1);
-        public Head MoveRight() => Direction == 0 ? new Head(Tape, Direction + 1) : new Head(Tape, Direction + 1);
+        public Head MoveLeft() => Direction == 0 ? new Head(HeadDirection.NoMove, Tape) : new Head(HeadDirection.Left, Tape);
+        public Head MoveRight() => Direction == 0 ? new Head(HeadDirection.NoMove, Tape) : new Head(HeadDirection.Right, Tape);
 
-        public Head Write(char head)
+        public Head Write(char symbolWrite, int currentIndex)
         {
             char[] tapeArray = Tape.ToArray();
-            if ((int)Direction < tapeArray.Length)
+            if (currentIndex >= 0 && currentIndex < tapeArray.Length)
             {
-                if (head == '0')
-                {
-                    tapeArray[(int)Direction] = 'X';
-                }
-                else if (head == '1')
-                {
-                    tapeArray[(int)Direction] = 'Y';
-                }
+                   tapeArray[currentIndex] = symbolWrite;
             }
             return new Head(tapeArray, Direction);
         }
+
         public char Read() => Tape.ElementAt((int) Direction);
 
         public Head Move(HeadDirection direction)

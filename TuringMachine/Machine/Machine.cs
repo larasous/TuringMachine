@@ -23,11 +23,17 @@ namespace Machine
  
         public void Run()
         {
-            foreach (char symbol in Head.Tape)
+            int currentIndex = 0;
+            char symbol;
+            char[] tapeArray = Head.Tape.ToArray();
+
+            while (currentIndex >= 0 && currentIndex < tapeArray.Length)
             {
+                symbol = tapeArray[currentIndex];
+                
                 var validTransitions = TransitionTable
-                                    .Where(t => (int)t.CurrentState == CurrentState && t.Read == symbol)
-                                    .ToList();
+                                   .Where(t => (int)t.CurrentState == CurrentState && t.Read == symbol)
+                                   .ToList();
                 if (!validTransitions.Any())
                 {
                     CurrentState = -1; // Indica rejeição
@@ -36,8 +42,18 @@ namespace Machine
 
                 var chosenTransition = validTransitions.First();
                 CurrentState = (int)chosenTransition.NextState;
-                Head = Head.Write(chosenTransition.Read).Move(chosenTransition.HeadDirection);
-            }
+                Head = Head.Write(chosenTransition.Write, currentIndex).Move(chosenTransition.HeadDirection);
+                tapeArray = Head.Tape.ToArray();
+
+                if (chosenTransition.HeadDirection == HeadDirection.Left)
+                {
+                    currentIndex--;
+                }
+                else if (chosenTransition.HeadDirection == HeadDirection.Right)
+                {
+                    currentIndex++;
+                }
+            }            
             IsAccepted = CurrentState == (int)State.Accept;
         }
     }
