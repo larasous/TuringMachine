@@ -5,18 +5,20 @@ using System.Linq;
 
 namespace Machine
 {
-    public class Machine
+    public class MachineTuring
     {
         public int InitialState { get; set; }
         public int CurrentState { get; set; }
+        public string Word { get; set; }
         public bool IsAccepted { get; set; }
         public Head Head { get; set;  }
         public IEnumerable<Transition> TransitionTable { get; }
 
-        public Machine(int state, Head head, IEnumerable<Transition> transitionTable)
+        public MachineTuring(string input, int state, Head head, IEnumerable<Transition> transitionTable)
         {
             InitialState = state;
             CurrentState = InitialState;
+            Word = input;
             Head = head ?? throw new ArgumentNullException(nameof(head));
             TransitionTable = transitionTable ?? throw new ArgumentNullException(nameof(transitionTable));
         }
@@ -29,7 +31,7 @@ namespace Machine
 
             while (currentIndex >= 0 && currentIndex < tapeArray.Length)
             {
-                symbol = tapeArray[currentIndex];
+                symbol = Head.Read(currentIndex);
                 
                 var validTransitions = TransitionTable
                                    .Where(t => (int)t.CurrentState == CurrentState && t.Read == symbol)
@@ -55,6 +57,10 @@ namespace Machine
                 }
             }            
             IsAccepted = CurrentState == (int)State.Accept;
+        }
+        public override string? ToString()
+        {
+            return (IsAccepted ? "A máquina aceita a entrada " : "A máquina rejeita a entrada ") + Word;
         }
     }
 }

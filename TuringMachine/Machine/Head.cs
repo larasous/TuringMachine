@@ -10,8 +10,6 @@ namespace Machine
         public HeadDirection Direction { get; }
         public IEnumerable<char> Tape { get; }
 
-        private string GetChar(char c, int index) => index == (int)Direction ? $"({c})" : c.ToString();
-
         public Head(IEnumerable<char> tape, HeadDirection headPosition)
         {
             if (tape == null)
@@ -45,7 +43,7 @@ namespace Machine
             return new Head(tapeArray, Direction);
         }
 
-        public char Read() => Tape.ElementAt((int) Direction);
+        public char Read(int currentIndex) => Tape.ElementAt(currentIndex);
 
         public Head Move(HeadDirection direction)
         {
@@ -57,8 +55,6 @@ namespace Machine
                 _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null),
             };
         }
-
-        public override string ToString() => $@"Tape: {Tape.Select(GetChar).Aggregate((agg, next) => agg + next)}";
 
     }
 }

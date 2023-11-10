@@ -15,18 +15,11 @@ namespace TuringMachine
 
             Head head = new Head(input, HeadDirection.NoMove);
 
-            Machine.Machine turingMachine = new Machine.Machine((int) State.Q1, head, transitionTable);
+            MachineTuring turingMachine = new MachineTuring(input, (int)State.Q1, head, transitionTable);
 
             turingMachine.Run();
 
-            if (turingMachine.IsAccepted)
-            {
-                Console.WriteLine("Máquina aceitou a entrada.");
-            }
-            else
-            {
-                Console.WriteLine("Máquina rejeitou a entrada.");
-            }
+            Console.WriteLine(turingMachine);
         }
     }
 }
