@@ -1,4 +1,4 @@
-# TuringMachine
+# Turing Machine
 
 ### Linguagem que a máquina aceita:
 ![image](https://github.com/larasous/TuringMachine/assets/72759776/470cd027-c3ad-4bad-a1f3-d9dcc8df223b)
