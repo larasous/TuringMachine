@@ -10,7 +10,7 @@ namespace TuringMachineTests
         [TestCase("0101", false)] // Teste com entrada "0101" que deve ser rejeitada (false)
         [TestCase("000111", true)] // Teste com entrada "000111" que deve ser aceita (true)
         [TestCase("0000000011111111", true)] // Teste com entrada "0000000011111111" que deve ser aceita (true)
-        public void MachineTuring_Run_ReturnsExpectedOutput(string input, bool expectedResult)
+        public void MachineTuring_When_Run_Then_ReturnsAceptedOrRejectedInput(string input, bool expectedResult)
         {
             // Arrange
             IEnumerable<Transition> transitionTable = TransitionsTable.Transitions();

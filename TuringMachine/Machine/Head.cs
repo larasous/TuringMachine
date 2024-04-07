@@ -28,8 +28,6 @@ namespace Machine
 
         public Head(HeadDirection direction, IEnumerable<char> tape)
         {
-            if (tape == null)
-                throw new ArgumentNullException();
             Direction = direction;
             Tape = tape;
         }
