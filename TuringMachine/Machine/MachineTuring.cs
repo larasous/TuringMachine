@@ -19,9 +19,11 @@ namespace Machine
             InitialState = state;
             CurrentState = InitialState;
             Word = input;
-            Head = head ?? throw new ArgumentNullException(nameof(head));
-            TransitionTable = transitionTable ?? throw new ArgumentNullException(nameof(transitionTable));
+            Head = head;
+            TransitionTable = transitionTable;
         }
+
+        public MachineTuring() { }
  
         public void Run()
         {

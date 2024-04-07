@@ -12,13 +12,15 @@ namespace Machine
 
         public Head(IEnumerable<char> tape, HeadDirection headPosition)
         {
-            if (tape == null)
-                throw new ArgumentNullException(nameof(tape));
+            if (!tape.Any())
+            {
+                throw new ArgumentException("Tape must not be empty.");
+            }
 
             var safeData = (new string(tape.ToArray()) + Head.Blank).ToCharArray();
 
-            if ((int) headPosition < 0 || (int) headPosition >= safeData.Length)
-                throw new IndexOutOfRangeException("Invalid head position");
+            //if ((int)headPosition < 0 || (int)headPosition >= safeData.Length)
+            //    throw new IndexOutOfRangeException();
 
             Tape = safeData;
             Direction = headPosition;
@@ -26,6 +28,8 @@ namespace Machine
 
         public Head(HeadDirection direction, IEnumerable<char> tape)
         {
+            if (tape == null)
+                throw new ArgumentNullException();
             Direction = direction;
             Tape = tape;
         }
@@ -40,7 +44,7 @@ namespace Machine
             {
                    tapeArray[currentIndex] = symbolWrite;
             }
-            return new Head(tapeArray, Direction);
+            return new Head(Direction, tapeArray);
         }
 
         public char Read(int currentIndex) => Tape.ElementAt(currentIndex);
